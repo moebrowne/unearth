@@ -10,17 +10,17 @@ NAMESERVERS[OpenDNSFamilyShield]="208.67.222.123 208.67.220.123"
 
 for NSGroupName in "${!NAMESERVERS[@]}"; do
 
-    NSGroupIPs=(${NAMESERVERS[$NSGroupName]})
+	NSGroupIPs=(${NAMESERVERS[$NSGroupName]})
 
-    for NSGroupIP in "${NSGroupIPs[@]}"; do
-        DIGOUTPUT=$(echo -n "$NSGroupName $NSGroupIP " && dig +nocmd +noall +answer "$domainName" A @$NSGroupIP)
-        echo "$DIGOUTPUT"
-    done
+	for NSGroupIP in "${NSGroupIPs[@]}"; do
+		DIGOUTPUT=$(echo -n "$NSGroupName $NSGroupIP " && dig +nocmd +noall +answer "$domainName" A @$NSGroupIP)
+		echo "$DIGOUTPUT"
+	done
 
 done
 exit;
 
 # Loop through each of the records returned from dig
 while read -r record; do
-    echo "$record"
+	echo "$record"
 done <<< "$DIGOUTPUT"
