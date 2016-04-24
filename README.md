@@ -7,3 +7,7 @@ A simple tool to show the progress of a DNS record propagation across multiple n
 ```bash
 ./unearth.sh <DOMAIN TO CHECK> <EXPECTED IPv4 ADDR>
 ```
+
+## Screen Shot
+
+![Example Output From Unearth](Screenshot.png)
