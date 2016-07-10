@@ -34,16 +34,16 @@ for NSGroupName in "${!NAMESERVERS[@]}"; do
 		reportedIP="${BASH_REMATCH[5]}"
 
 		if [ "$reportedIP" == "$targetIP" ]; then
-			table+="\e[32m#"
+			table+="\e[32m\u2713"
 		else
-			table+="\e[31m[$reportedIP] "
+			table+="\e[31m\u2715"
 		fi
 
-		table+="\e[0m"
+		table+="\e[0m	"
 	done
 
 	table+="\n"
 
 done
 
-echo -ne "$table" | column -t -s $'\t'
+echo -ne "$table" | column -ts $'\t'
