@@ -14,11 +14,16 @@ NAMESERVERS['DNSWatch']="84.200.69.80 84.200.70.40"
 NAMESERVERS['DYN']="216.146.35.35 216.146.36.36"
 NAMESERVERS['Norton']="199.85.126.10 199.85.127.10"
 
+table=""
+
+table+="DNS Provider	\e[29mServer 1\e[0m	\e[29mServer 2\e[0m	\e[29mServer 3\e[0m	\e[29mServer 4\e[0m\n"
+table+="\n"
+
 for NSGroupName in "${!NAMESERVERS[@]}"; do
 
 	NSGroupIPs=(${NAMESERVERS[$NSGroupName]})
 
-	echo -n "$NSGroupName: "
+	table+="$NSGroupName	"
 
 	for NSGroupIP in "${NSGroupIPs[@]}"; do
 		DIGOUTPUT=$(dig +nocmd +noall +answer "$domainName" A @$NSGroupIP)
@@ -29,20 +34,16 @@ for NSGroupName in "${!NAMESERVERS[@]}"; do
 		reportedIP="${BASH_REMATCH[5]}"
 
 		if [ "$reportedIP" == "$targetIP" ]; then
-			echo -ne "\e[32m#"
+			table+="\e[32m"
 		else
-			echo -ne "\e[31m[$reportedIP] "
+			table+="\e[31m"
 		fi
 
-		echo -ne "\e[0m"
+		table+="$reportedIP\e[0m	"
 	done
 
-	echo
+	table+="\n"
 
 done
-exit;
 
-# Loop through each of the records returned from dig
-while read -r record; do
-	echo "$record"
-done <<< "$DIGOUTPUT"
+echo -ne "$table" | column -tes $'\t'
