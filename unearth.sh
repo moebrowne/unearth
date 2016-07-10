@@ -16,7 +16,7 @@ NAMESERVERS['Norton']="199.85.126.10 199.85.127.10"
 
 table=""
 
-table+="DNS Providers	\e[29m1\e[0m	\e[29m2\e[0m	\e[29m3\e[0m	\e[29m4\e[0m\n"
+table+="DNS Provider	\e[29mServer 1\e[0m	\e[29mServer 2\e[0m	\e[29mServer 3\e[0m	\e[29mServer 4\e[0m\n"
 table+="\n"
 
 for NSGroupName in "${!NAMESERVERS[@]}"; do
@@ -34,12 +34,12 @@ for NSGroupName in "${!NAMESERVERS[@]}"; do
 		reportedIP="${BASH_REMATCH[5]}"
 
 		if [ "$reportedIP" == "$targetIP" ]; then
-			table+="\e[32m\u2713"
+			table+="\e[32m"
 		else
-			table+="\e[31m\u2715"
+			table+="\e[31m"
 		fi
 
-		table+="\e[0m	"
+		table+="$reportedIP\e[0m	"
 	done
 
 	table+="\n"
