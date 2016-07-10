@@ -16,8 +16,8 @@ NAMESERVERS['Norton']="199.85.126.10 199.85.127.10"
 
 table=""
 
-table+="Provider	Servers Queried\n"
-table+="--------	----------------\n"
+table+="DNS Providers	\e[29m1\e[0m	\e[29m2\e[0m	\e[29m3\e[0m	\e[29m4\e[0m\n"
+table+="\n"
 
 for NSGroupName in "${!NAMESERVERS[@]}"; do
 
@@ -46,4 +46,4 @@ for NSGroupName in "${!NAMESERVERS[@]}"; do
 
 done
 
-echo -ne "$table" | column -ts $'\t'
+echo -ne "$table" | column -tes $'\t'
