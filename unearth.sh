@@ -1,5 +1,17 @@
 #!/bin/bash
 
+# Get the source directory
+SOURCE_ROOT="${BASH_SOURCE%/*}"
+
+# Set the library root path
+LIBRARY_PATH_ROOT="$SOURCE_ROOT/libs"
+
+# Include all libraries in the libs directory
+for f in "$LIBRARY_PATH_ROOT"/*.sh; do
+	# Include the directory
+	source "$f"
+done
+
 domainName=$1
 targetIP=$2
 
