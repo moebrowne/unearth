@@ -16,6 +16,9 @@ NAMESERVERS['Norton']="199.85.126.10 199.85.127.10"
 
 table=""
 
+table+="Provider	Servers Queried\n"
+table+="--------	----------------\n"
+
 for NSGroupName in "${!NAMESERVERS[@]}"; do
 
 	NSGroupIPs=(${NAMESERVERS[$NSGroupName]})
