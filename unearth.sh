@@ -56,15 +56,15 @@ for NSGroupName in "${!NAMESERVERS[@]}"; do
 		regexDNSRecord="^([[:alnum:]\-\.]+)[[:space:]]+([0-9]+)[[:space:]]+(IN)[[:space:]]+([[:alnum:]]+)[[:space:]]+(.+)$"
 		[[ $DIGOUTPUT =~ $regexDNSRecord ]]
 
-		reportedIP="${BASH_REMATCH[5]}"
+		reportedValue="${BASH_REMATCH[5]}"
 
-		if [ "$reportedIP" == "$(argValue 'target')" ]; then
+		if [ "$reportedValue" == "$(argValue 'target')" ]; then
 			table+="\e[32m"
 		else
 			table+="\e[31m"
 		fi
 
-		table+="$reportedIP\e[0m	"
+		table+="$reportedValue\e[0m	"
 	done
 
 	table+="\n"
