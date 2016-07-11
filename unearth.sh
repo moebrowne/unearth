@@ -60,6 +60,9 @@ for NSGroupName in "${!NAMESERVERS[@]}"; do
 
 		if [ "$reportedValue" == "$(argValue 'target')" ]; then
 			table+="\e[32m"
+		elif [ "$reportedValue" == "" ]; then
+			reportedValue="[NO RECORD]"
+			table+="\e[33m"
 		else
 			table+="\e[31m"
 		fi
