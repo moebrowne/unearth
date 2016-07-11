@@ -5,6 +5,7 @@ declare -A argExpected
 argExpected['fqdn|FQDN']="FQDN - Fully Qualified Domain Name"
 argExpected['record|R']="recordType=A - The type of DNS record to check"
 argExpected['target|t']="target - The target value for the DNS record"
+argExpected['h|help']="help - This help message"
 
 # Get the source directory
 SOURCE_ROOT="${BASH_SOURCE%/*}"
@@ -17,6 +18,12 @@ for f in "$LIBRARY_PATH_ROOT"/*.sh; do
 	# Include the directory
 	source "$f"
 done
+
+# Show the help text
+if argPassed 'help'; then
+	argList
+	exit 0
+fi
 
 FQDN="$(argValue 'FQDN')"
 recordType="$(argValue 'recordType')"
