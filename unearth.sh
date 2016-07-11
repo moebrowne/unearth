@@ -3,7 +3,7 @@
 # Define all the arguments
 declare -A argExpected
 argExpected['fqdn|FQDN']="FQDN - Fully Qualified Domain Name"
-argExpected['record|R']="recordType=A - The type of DNS record to check"
+argExpected['record|R']="recordType=A - The type of DNS record to check (A, AAAA, CNAME, etc)"
 argExpected['target|t']="target - The target value for the DNS record"
 argExpected['h|help']="help - This help message"
 
