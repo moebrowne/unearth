@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# Define all the arguments
+declare -A argExpected
+argExpected['fqdn|FQDN']="FQDN - Fully Qualified Domain Name"
+argExpected['record|R']="recordType=A - The type of DNS record to check"
+argExpected['target|t']="target - The target value for the DNS record"
+
 # Get the source directory
 SOURCE_ROOT="${BASH_SOURCE%/*}"
 
@@ -12,8 +18,8 @@ for f in "$LIBRARY_PATH_ROOT"/*.sh; do
 	source "$f"
 done
 
-domainName=$1
-targetIP=$2
+FQDN="$(argValue 'FQDN')"
+recordType="$(argValue 'recordType')"
 
 declare -A NAMESERVERS
 
@@ -38,14 +44,14 @@ for NSGroupName in "${!NAMESERVERS[@]}"; do
 	table+="$NSGroupName	"
 
 	for NSGroupIP in "${NSGroupIPs[@]}"; do
-		DIGOUTPUT=$(dig +nocmd +noall +answer "$domainName" A @$NSGroupIP)
+		DIGOUTPUT=$(dig +nocmd +noall +answer "$FQDN" "$recordType" @$NSGroupIP)
 
 		regexDNSRecord="^([[:alnum:]\-\.]+)[[:space:]]+([0-9]+)[[:space:]]+(IN)[[:space:]]+([[:alnum:]]+)[[:space:]]+(.+)$"
 		[[ $DIGOUTPUT =~ $regexDNSRecord ]]
 
 		reportedIP="${BASH_REMATCH[5]}"
 
-		if [ "$reportedIP" == "$targetIP" ]; then
+		if [ "$reportedIP" == "$(argValue 'target')" ]; then
 			table+="\e[32m"
 		else
 			table+="\e[31m"
